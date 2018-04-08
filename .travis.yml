@@ -14,13 +14,15 @@ before_install:
   - eval "${MATRIX_EVAL}"
 before_script:
   - sudo apt-get install libboost-test-dev -y
+  - sudo apt-get install doxygen
 script:
   - cmake .
   - cmake --build .
   - cmake --build . --target test
   - cmake --build . --target package
+  - doxygen
 deploy:
   provider: script
   skip_cleanup: true
   script:
-  - curl -T ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uandreyandreevich:$BINTRAY_API_KEY "https://api.bintray.com/content/andreylukin/cpp_projects/ip_filter/$TRAVIS_BUILD_NUMBER/ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
+  - curl -T print_ip-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uandreyandreevich:$BINTRAY_API_KEY "https://api.bintray.com/content/12345678/cpp_projects/print_ip/$TRAVIS_BUILD_NUMBER/print_ip-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
