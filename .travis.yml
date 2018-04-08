@@ -26,6 +26,7 @@ deploy:
   skip_cleanup: true
   script:
   - curl -T print_ip-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uandreyandreevich:$BINTRAY_API_KEY "https://api.bintray.com/content/12345678/cpp_projects/print_ip/$TRAVIS_BUILD_NUMBER/print_ip-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
+
 deploy:
   provider: pages
   skip-cleanup: true
