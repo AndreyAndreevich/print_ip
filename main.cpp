@@ -42,7 +42,7 @@ int main()
 
   std::cout << std::endl << "print_tuple: " << std::endl;
 
-  print_ip(std::make_tuple(static_cast<long>(8875824491850138409),std::vector<char>{1,2,-1},std::string{"111.111"}),std::cout);
+  print_ip(std::make_tuple(264,4,5),std::cout);
   std::cout << std::endl;
 
   return 0;
