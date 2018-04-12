@@ -85,70 +85,128 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 </div><!--header-->
 <div class="contents">
 <a href="print__ip_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;tuple&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;streambuf&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;tuple&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="print__ip_8h.html#ae88277fa6cfd8336da89b13f5dc054ef">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="print__ip_8h.html#ae88277fa6cfd8336da89b13f5dc054ef">print_ip</a>(<span class="keywordtype">bool</span>* value, <span class="keywordtype">int</span> N, std::ostream &amp;out) {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keywordflow">while</span> (N&gt;0) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    out &lt;&lt; *(value+N) &lt;&lt; <span class="stringliteral">&quot;.&quot;</span>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    N--;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  out &lt;&lt; *value;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">//--------------------------&lt;declaration&gt;-----------------------------------------</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(<span class="keywordtype">bool</span>* value, <span class="keywordtype">int</span> N, std::ostream &amp;out);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structis__all__of.html">   17</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structis__all__of.html">is_all_of</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">typename</span> std::enable_if&lt;std::is_integral&lt;T&gt;::value,<span class="keywordtype">void</span>&gt;::type <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(T value, std::ostream &amp;out);</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="print__ip_8h.html#a08627b485db29938a0dc19533e69eda9">   23</a></span>&#160;<span class="keyword">typename</span> std::enable_if&lt;std::is_integral&lt;T&gt;::value,<span class="keywordtype">void</span>&gt;::type <a class="code" href="print__ip_8h.html#ae88277fa6cfd8336da89b13f5dc054ef">print_ip</a>(T value, std::ostream &amp;out) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="print__ip_8h.html#ae88277fa6cfd8336da89b13f5dc054ef">print_ip</a>(reinterpret_cast&lt;bool*&gt;(&amp;value), <span class="keyword">sizeof</span>(T)-1, out);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">void</span> <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(<span class="keyword">const</span> std::string &amp;value, std::ostream &amp;out);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">typename</span> std::enable_if&lt;std::is_integral&lt;typename T::value_type&gt;::value+1,<span class="keywordtype">void</span>&gt;::type <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(<span class="keyword">const</span> T &amp;value, std::ostream &amp;out);</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="print__ip_8h.html#a945a2a41a817cf6feb79a535c3c1703c">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="print__ip_8h.html#ae88277fa6cfd8336da89b13f5dc054ef">print_ip</a>(<span class="keyword">const</span> std::string &amp;value, std::ostream &amp;out) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  out &lt;&lt; value;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="print__ip_8h.html#a95b92cb7a79908fbd012f21edf566e84">   36</a></span>&#160;<span class="keyword">typename</span> std::enable_if&lt;std::is_integral&lt;typename T::value_type&gt;::value,<span class="keywordtype">void</span>&gt;::type <a class="code" href="print__ip_8h.html#ae88277fa6cfd8336da89b13f5dc054ef">print_ip</a>(<span class="keyword">const</span> T &amp;value, std::ostream &amp;out) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = value.begin(); it != value.end(); it++) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">if</span> (it != value.begin())</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      out &lt;&lt; <span class="stringliteral">&quot;..&quot;</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="print__ip_8h.html#ae88277fa6cfd8336da89b13f5dc054ef">print_ip</a>(*it,out);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">int</span> index, <span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structprint__tuple.html">   47</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structprint__tuple.html">print_tuple</a> {</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structprint__tuple.html#aecf9b77728fcdc0cda17a6a84fbfde0c">   48</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structprint__tuple.html#aecf9b77728fcdc0cda17a6a84fbfde0c">operator() </a>(<span class="keyword">const</span> std::tuple&lt;Args...&gt; &amp;value,std::ostream &amp;out) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="structprint__tuple.html">print_tuple</a>&lt;index - 1, Args...&gt;{}(value,out);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    out &lt;&lt; <span class="stringliteral">&quot;...&quot;</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="print__ip_8h.html#ae88277fa6cfd8336da89b13f5dc054ef">print_ip</a>(std::get&lt;index&gt;(value),out);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;constexpr <span class="keyword">typename</span> std::enable_if&lt;<a class="code" href="structis__all__of.html">is_all_of</a>&lt;Args...&gt;::value,<span class="keywordtype">void</span>&gt;::type <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(<span class="keyword">const</span> std::tuple&lt;Args...&gt; &amp;value, std::ostream &amp;out);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">//--------------------------&lt;/declaration&gt;-----------------------------------------</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">//--------------------------&lt;print_ip&gt;---------------------------------------------</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="print__ip_8h.html#a8429c23bb097a4496263729b789cd4d9">   35</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="print__ip_8h.html#a8429c23bb097a4496263729b789cd4d9">print_ip</a>(T value, std::ostream &amp;out) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">auto</span> buf = out.rdbuf();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  std::stringbuf sb;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  out.rdbuf(&amp;sb);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(value, out);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">auto</span> str(std::move(sb.str()));</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordflow">if</span> (str[str.size()-1] == <span class="charliteral">&#39;.&#39;</span>)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    str.pop_back();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  out.rdbuf(buf);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  out &lt;&lt; str;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">   50</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(<span class="keywordtype">bool</span>* value, <span class="keywordtype">int</span> N, std::ostream &amp;out) {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordflow">for</span> (; N &gt; -1;N--)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    out &lt;&lt; value[N] &lt;&lt; <span class="stringliteral">&quot;.&quot;</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structprint__tuple_3_010_00_01Args_8_8_8_4.html">   56</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structprint__tuple.html">print_tuple</a>&lt;0, Args...&gt; {</div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="structprint__tuple_3_010_00_01Args_8_8_8_4.html#a5c66bb81e8fe71f89f9f93f83d5556db">   57</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structprint__tuple.html#aecf9b77728fcdc0cda17a6a84fbfde0c">operator() </a>(<span class="keyword">const</span> std::tuple&lt;Args...&gt; &amp;value,std::ostream &amp;out) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="print__ip_8h.html#ae88277fa6cfd8336da89b13f5dc054ef">print_ip</a>(std::get&lt;0&gt;(value),out);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="print__ip_8h.html#a4df0182f835f1d1c21f44da0c74505c9">   63</a></span>&#160;constexpr <span class="keywordtype">void</span> <a class="code" href="print__ip_8h.html#ae88277fa6cfd8336da89b13f5dc054ef">print_ip</a>(<span class="keyword">const</span> std::tuple&lt;Args...&gt; &amp;value, std::ostream &amp;out) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> size = std::tuple_size&lt;std::tuple&lt;Args...&gt;&gt;::value;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <a class="code" href="structprint__tuple.html">print_tuple</a>&lt;size-1,Args...&gt;{}(value,out);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
-<div class="ttc" id="structprint__tuple_html"><div class="ttname"><a href="structprint__tuple.html">print_tuple</a></div><div class="ttdef"><b>Definition:</b> print_ip.h:47</div></div>
-<div class="ttc" id="print__ip_8h_html_ae88277fa6cfd8336da89b13f5dc054ef"><div class="ttname"><a href="print__ip_8h.html#ae88277fa6cfd8336da89b13f5dc054ef">print_ip</a></div><div class="ttdeci">void print_ip(bool *value, int N, std::ostream &amp;out)</div><div class="ttdef"><b>Definition:</b> print_ip.h:10</div></div>
-<div class="ttc" id="structprint__tuple_html_aecf9b77728fcdc0cda17a6a84fbfde0c"><div class="ttname"><a href="structprint__tuple.html#aecf9b77728fcdc0cda17a6a84fbfde0c">print_tuple::operator()</a></div><div class="ttdeci">void operator()(const std::tuple&lt; Args...&gt; &amp;value, std::ostream &amp;out)</div><div class="ttdef"><b>Definition:</b> print_ip.h:48</div></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">//--------------------------&lt;/print_ip&gt;---------------------------------------------</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">//--------------------------&lt;integral type&gt;-------------------------------------------------------</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="print__ip_8h.html#aa77b7ff920636ea1c60c813ae9a2d506">   60</a></span>&#160;<span class="keyword">typename</span> std::enable_if&lt;std::is_integral&lt;T&gt;::value,<span class="keywordtype">void</span>&gt;::type <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(T value, std::ostream &amp;out) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(reinterpret_cast&lt;bool*&gt;(&amp;value), <span class="keyword">sizeof</span>(T)-1, out);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">//--------------------------&lt;/integral type&gt;-------------------------------------------------------</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">//--------------------------&lt;std::string&gt;-------------------------------------------------------</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="print__ip_8h.html#ada30d3ada5c2455ee56d53408204248c">   68</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(<span class="keyword">const</span> std::string &amp;value, std::ostream &amp;out) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  out &lt;&lt; value;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">//--------------------------&lt;/std::string&gt;---------------------------------------------------</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">//--------------------------&lt;container&gt;-------------------------------------------------------</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="print__ip_8h.html#a3c41ed88d329e97d17658c75defe1b05">   77</a></span>&#160;<span class="keyword">typename</span> std::enable_if&lt;std::is_integral&lt;typename T::value_type&gt;::value+1,<span class="keywordtype">void</span>&gt;::type <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(<span class="keyword">const</span> T &amp;value, std::ostream &amp;out) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = value.begin(); it != value.end(); it++) </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(*it,out);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">//--------------------------&lt;/container&gt;-------------------------------------------------------</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">//--------------------------&lt;std::typle&gt;-------------------------------------------------------</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="structis__all__of_3_01T_01_4.html">   87</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structis__all__of.html">is_all_of</a>&lt;T&gt; : std::true_type {};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U, <span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="structis__all__of_3_01T_00_01U_00_01Args_8_8_8_4.html">   90</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structis__all__of.html">is_all_of</a>&lt;T,U,Args...&gt; : std::false_type {};</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="structis__all__of_3_01T_00_01T_00_01Args_8_8_8_4.html">   93</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structis__all__of.html">is_all_of</a>&lt;T,T,Args...&gt; : <a class="code" href="structis__all__of.html">is_all_of</a>&lt;T,Args...&gt; {};</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">int</span> index, <span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="structprint__tuple.html">   98</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structprint__tuple.html">print_tuple</a> {</div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="structprint__tuple.html#aecf9b77728fcdc0cda17a6a84fbfde0c">   99</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structprint__tuple.html#aecf9b77728fcdc0cda17a6a84fbfde0c">operator() </a>(<span class="keyword">const</span> std::tuple&lt;Args...&gt; &amp;value,std::ostream &amp;out) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="structprint__tuple.html">print_tuple</a>&lt;index - 1, Args...&gt;{}(value,out);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(std::get&lt;index&gt;(value),out);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;};</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="structprint__tuple_3_010_00_01Args_8_8_8_4.html">  106</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structprint__tuple.html">print_tuple</a>&lt;0, Args...&gt; {</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="structprint__tuple_3_010_00_01Args_8_8_8_4.html#a5c66bb81e8fe71f89f9f93f83d5556db">  107</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structprint__tuple.html#aecf9b77728fcdc0cda17a6a84fbfde0c">operator() </a>(<span class="keyword">const</span> std::tuple&lt;Args...&gt; &amp;value,std::ostream &amp;out) {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(std::get&lt;0&gt;(value),out);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;};</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="print__ip_8h.html#a6917d17a3e0b51170f3e058ecea17bc6">  113</a></span>&#160;constexpr <span class="keyword">typename</span> std::enable_if&lt;<a class="code" href="structis__all__of.html">is_all_of</a>&lt;Args...&gt;::value,<span class="keywordtype">void</span>&gt;::type <a class="code" href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a>(<span class="keyword">const</span> std::tuple&lt;Args...&gt; &amp;value, std::ostream &amp;out) {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> size = std::tuple_size&lt;std::tuple&lt;Args...&gt;&gt;::value;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <a class="code" href="structprint__tuple.html">print_tuple</a>&lt;size-1,Args...&gt;{}(value,out);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">//--------------------------&lt;/std::typle&gt;-------------------------------------------------------</span></div>
+<div class="ttc" id="print__ip_8h_html_a8429c23bb097a4496263729b789cd4d9"><div class="ttname"><a href="print__ip_8h.html#a8429c23bb097a4496263729b789cd4d9">print_ip</a></div><div class="ttdeci">void print_ip(T value, std::ostream &amp;out)</div><div class="ttdef"><b>Definition:</b> print_ip.h:35</div></div>
+<div class="ttc" id="structprint__tuple_html"><div class="ttname"><a href="structprint__tuple.html">print_tuple</a></div><div class="ttdef"><b>Definition:</b> print_ip.h:98</div></div>
+<div class="ttc" id="print__ip_8h_html_a8222042f425dc9638ceb637a22075e38"><div class="ttname"><a href="print__ip_8h.html#a8222042f425dc9638ceb637a22075e38">print_value</a></div><div class="ttdeci">void print_value(bool *value, int N, std::ostream &amp;out)</div><div class="ttdef"><b>Definition:</b> print_ip.h:50</div></div>
+<div class="ttc" id="structis__all__of_html"><div class="ttname"><a href="structis__all__of.html">is_all_of</a></div><div class="ttdef"><b>Definition:</b> print_ip.h:17</div></div>
+<div class="ttc" id="structprint__tuple_html_aecf9b77728fcdc0cda17a6a84fbfde0c"><div class="ttname"><a href="structprint__tuple.html#aecf9b77728fcdc0cda17a6a84fbfde0c">print_tuple::operator()</a></div><div class="ttdeci">void operator()(const std::tuple&lt; Args...&gt; &amp;value, std::ostream &amp;out)</div><div class="ttdef"><b>Definition:</b> print_ip.h:99</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
